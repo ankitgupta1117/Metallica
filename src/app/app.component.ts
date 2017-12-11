@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { NewTradeComponent } from '../forms/trade/tradeForm.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `<trade-form> </trade-form>`,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Mettalica';
 }

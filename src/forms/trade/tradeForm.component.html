@@ -1,0 +1,77 @@
+<mat-card>
+    <mat-card-title>Trade </mat-card-title>
+    <mat-card-subtitle> Enter trade details : </mat-card-subtitle>
+    <div class="example-container">
+        <form #newtradeform="ngForm" (ngSubmit)="submit()">
+
+            <mat-form-field floatLabel="always" aria-label="Ankit">
+
+                <mat-label>
+                    <b>Trade Date </b>
+                </mat-label>
+                <input matInput name="tradedate" [matDatepicker]="tradeDatePicker
+                " ngControl="tradedate" [(ngModel)]="trade.tradeDate" disabled required>
+                <mat-datepicker-toggle matSuffix [for]="tradeDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #tradeDatePicker disabled="false"></mat-datepicker>    
+            </mat-form-field>
+            <div>
+                <mat-form-field floatLabel="always">
+                    <mat-label>
+                        <b>Commodity</b>
+                    </mat-label>
+                    <input matInput name="commodity" ngControl="commodity" [(ngModel)]="trade.commodity" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-radio-group class="example-radio-group" layout-align="start center"
+                 [(ngModel)]="selectedSide" name="sides">
+                    <span mat-label>Side</span>
+                    <mat-radio-button aria-label="sfsdfs" class="example-radio-button" *ngFor="let side of sides" 
+                    [value]="side" labelPosition ="after" > {{side}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div>
+                <br>
+            </div>
+            <div>
+                <mat-form-field floatLabel="always">
+                    <mat-label>
+                        <b>Counterparty</b>
+                    </mat-label>
+                    <input matInput name="counterparty" ngControl="counterparty" [(ngModel)]="trade.counterparty" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatLabel="always">
+                    <mat-label>
+                        <b>Price</b>
+                    </mat-label>
+                    <input matInput name="price" ngControl="price" [(ngModel)]="trade.price" required> 
+                    <span matSuffix>USD</span>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatLabel="always">
+                    <mat-label>
+                        <b>Quantity</b>
+                    </mat-label>
+                    <input matInput name="qty" ngControl="qty" [(ngModel)]="trade.qty" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field floatLabel="always">
+                    <mat-label>
+                        <b>Location</b>
+                    </mat-label>
+                    <input matInput name="location" ngControl="location" [(ngModel)]="trade.location" required>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="accent" text-transform="uppercase" type="reset"> Cancel</button>
+                <button mat-raised-button color="accent" text-transform="uppercase" type="submit"> Save</button>
+            </div>
+        </form>
+    </div>
+
+</mat-card>

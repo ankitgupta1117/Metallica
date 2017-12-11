@@ -1,0 +1,47 @@
+<div class="example-container">
+    <form #contactform="ngForm" (ngSubmit)="submit()">
+
+        <mat-form-field floatLabel="always" hintLabel="Max 15 characters">
+            <mat-label ><b>Full Name </b></mat-label>
+            <input matInput name="name" ngControl="name" [(ngModel)]="contact.name" 
+            required>
+            <mat-hint align="end">{{contact.name ?.length || 0}}/10</mat-hint>
+        </mat-form-field>
+        <div>
+            <mat-form-field floatLabel="always">
+                <mat-label>Current Address</mat-label>
+                <input matInput name="address" ngControl="address" [(ngModel)]="contact.address"
+                required >
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field floatLabel="always">
+                <mat-label>Email Address</mat-label>
+                <input matInput placeholder="someone@example.com" name="email" ngControl="email"
+                 [(ngModel)]="contact.email" required>
+            </mat-form-field>
+        </div>
+
+        <div>
+                
+                 <mat-label> <b>Side: </b> </mat-label>
+                <mat-radio-group class="example-radio-group" layout-align="start center" [(ngModel)]="selectedSide" name="sides">
+                    <mat-radio-button class="example-radio-button" *ngFor="let side of sides" [value]="side">
+                        {{side}}
+                    </mat-radio-button>
+                </mat-radio-group>
+                
+                <div>Your favorite season is: {{selectedSide}}</div>
+            
+        </div>
+
+
+
+        <div>
+            <button mat-raised-button color="accent" text-transform="uppercase" type="submit"> Submit</button>
+
+        </div>
+
+    </form>
+
+</div>
