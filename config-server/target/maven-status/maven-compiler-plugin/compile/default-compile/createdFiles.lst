@@ -1,0 +1,5 @@
+com\sapient\configserver\config\DBEnvironmentRepository.class
+com\sapient\configserver\ConfigServerApplication.class
+com\sapient\configserver\config\AppConfig.class
+com\sapient\configserver\config\PropertiesResultSetExtractor.class
+com\sapient\configserver\config\OracleConfig.class

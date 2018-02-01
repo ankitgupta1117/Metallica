@@ -1,0 +1,9 @@
+.main-container  {
+  margin: 10px;
+
+  /*width: 20%*/
+}
+.mat-simple-snackbar{
+  font-size: 17px;
+  justify-content: center;
+}

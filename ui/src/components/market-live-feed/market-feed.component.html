@@ -1,0 +1,10 @@
+<mat-card class="market-feed">           
+    <div *ngIf="isPositive" style="display: inline" >
+          <mat-icon fontSet="fa" fontIcon="fa-arrow-up" class="up-arrow-green" aria-hidden="true"> </mat-icon>
+        </div>
+        <div *ngIf="!isPositive" style="display: inline"> 
+        <mat-icon fontSet="fa" fontIcon="fa-arrow-down" class="down-arrow-red" aria-hidden="true"> </mat-icon>
+    </div>
+    <!-- {{ isPositive }} -->
+    {{ commodity }}<b> {{ price }}</b>
+</mat-card>

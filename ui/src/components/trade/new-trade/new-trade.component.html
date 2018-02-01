@@ -1,0 +1,78 @@
+<mat-card class="main-container mat-elevation-z8">
+    <!--color="primary" style="flex: 1 1 auto;"-->
+    <mat-card-title> New Trade Details </mat-card-title>
+    <mat-card-content>
+        <div>
+            <form #newtradeform="ngForm" (ngSubmit)="submit()">
+
+                <mat-form-field floatLabel="always">
+
+                    <mat-label>
+                        <b>Trade Date </b>
+                    </mat-label>
+                    <input matInput name="tradedate" [matDatepicker]="tradeDatePicker
+                " ngControl="tradedate" [(ngModel)]="trade.tradeDate" disabled required>
+                    <mat-datepicker-toggle matSuffix [for]="tradeDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #tradeDatePicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+                <div>
+                    <mat-form-field floatLabel="always">
+                        <mat-label><b>Commodity</b></mat-label>
+                        <!--formControlName="commodity" -->
+                        <mat-select [(ngModel)]="trade.commodity" name="commodity">
+                            <mat-option *ngFor="let commodity of commodities" [value]="commodity.code">{{commodity.description}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <label>Side: </label>
+                    <mat-radio-group class="example-radio-group" layout-align="start center" [(ngModel)]="trade.side" name="sides">
+
+                        <mat-radio-button class="example-radio-button" *ngFor="let side of sides" [value]="side[0]" labelPosition="after"> {{side[1]}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div>
+                    <br>
+                </div>
+                <div> 
+                    <mat-form-field floatLabel="always">
+                            <mat-label><b>Counterparty</b></mat-label>
+                            <mat-select [(ngModel)]="trade.cntrParty" name="counterparty">
+                                <mat-option *ngFor="let counterparty of counterparties" [value]="counterparty.id">{{counterparty.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field floatLabel="always">
+                        <mat-label>
+                            <b>Price</b>
+                        </mat-label>
+                        <input matInput name="price" ngControl="price" [(ngModel)]="trade.price" required>
+                        <span matSuffix>USD</span>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field floatLabel="always">
+                        <mat-label>
+                            <b>Quantity</b>
+                        </mat-label>
+                        <input matInput name="qty" ngControl="qty" [(ngModel)]="trade.quantity" required>
+                    </mat-form-field>
+                </div>
+                <div>
+                        <mat-form-field floatLabel="always">
+                                <mat-label><b>Location</b></mat-label>
+                                <mat-select ngControl="location" [(ngModel)]="trade.location" required name="location">
+                                    <mat-option *ngFor="let location of locations" [value]="location.code">{{location.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                </div>
+                <div>
+                    <button mat-raised-button color="accent" text-transform="uppercase" type="reset"> Cancel</button>
+                    <button mat-raised-button color="primary" text-transform="uppercase" type="submit"> Save</button>
+                </div>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,55 @@
+<mat-card class="main-container mat-elevation-z11">
+
+  <form [formGroup]="searchForm" (ngSubmit)="doSearch()" (ngReset)="doReset()">
+    <mat-form-field class="style: margin-right=3px;">
+      <!--<mat-label>Trade Date</mat-label>-->
+      <input matInput name="fromDate" [matDatepicker]="fromDatePicker" ngControl="tradedate" formControlName="fromDate" >
+      <mat-placeholder>From Date</mat-placeholder>
+      <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromDatePicker ></mat-datepicker>
+      <!--<mat-error *ngIf="searchForm.controls.fromDate.invalid">Invalid Date</mat-error>-->
+    </mat-form-field>
+    To
+    <mat-form-field>
+      <input matInput name="toDate" [matDatepicker]="toDatePicker" formControlName="toDate">
+      <mat-placeholder>Till Date</mat-placeholder>
+      <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #toDatePicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <!--<mat-form-field floatLabel="always">-->
+    <mat-form-field>
+    <mat-label>Commodity</mat-label>
+    <mat-select formControlName="commodity" [ngModel]="commodities[0].code">
+      <mat-option *ngFor="let commodity of commodities" [value]="commodity.code">{{commodity.description}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+<!--
+    <mat-form-field floatLabel="always">
+-->
+      <mat-form-field>
+      <mat-label>Counterparty</mat-label>
+      <mat-select formControlName="counterparty" [ngModel]="counterparties[0].id">
+        <mat-option *ngFor="let counterparty of counterparties" [value]="counterparty.id">{{counterparty.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+<!--
+    <mat-form-field floatLabel="always">
+-->
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location" [ngModel]="locations[0].code">
+        <mat-option *ngFor="let location of locations"
+
+                    [value]="location.code">{{location.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" text-transform="uppercase" type="reset"> Cancel</button>
+    <button mat-raised-button color="primary" text-transform="uppercase" type="submit"> Search</button>
+
+  </form>
+</mat-card>

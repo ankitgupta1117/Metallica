@@ -1,0 +1,5 @@
+com\sapient\fsd\common\events\TradeEventType.class
+com\sapient\fsd\common\models\Commodity.class
+com\sapient\fsd\common\events\TradeEvent.class
+com\sapient\fsd\common\models\CounterParty.class
+com\sapient\fsd\common\models\Location.class

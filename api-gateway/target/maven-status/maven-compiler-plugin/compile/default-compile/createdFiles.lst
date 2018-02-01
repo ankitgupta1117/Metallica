@@ -1,0 +1,15 @@
+com\sapient\fsd\Application.class
+com\sapient\fsd\controllers\CounterPartyController.class
+com\sapient\fsd\controllers\LocationController$1.class
+com\sapient\fsd\models\CounterParty.class
+com\sapient\fsd\controllers\LocationController$2.class
+com\sapient\fsd\controllers\CommodityController$1.class
+com\sapient\fsd\config\WebConfig$1.class
+com\sapient\fsd\config\WebConfig.class
+com\sapient\fsd\controllers\CounterPartyController$1.class
+com\sapient\fsd\models\Commodity.class
+com\sapient\fsd\controllers\CounterPartyController$2.class
+com\sapient\fsd\models\Location.class
+com\sapient\fsd\controllers\CommodityController.class
+com\sapient\fsd\controllers\CommodityController$2.class
+com\sapient\fsd\controllers\LocationController.class

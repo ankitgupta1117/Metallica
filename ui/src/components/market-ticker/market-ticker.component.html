@@ -1,0 +1,8 @@
+<mat-toolbar>
+    
+        <market-feed *ngFor="let feed of tickers" [name]="feed" 
+        [price]="tickerData.get(feed).price" [isPositive]= "tickerData.get(feed).isup"
+        class="market-feed"> 
+        </market-feed>
+               
+</mat-toolbar>
