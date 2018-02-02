@@ -1,8 +1,6 @@
 package com.sapient.fsd.refdata.controllers;
 
-import com.sapient.fsd.refdata.entities.CounterParty;
-import com.sapient.fsd.refdata.entities.Location;
-import com.sapient.fsd.refdata.services.CounterPartyService;
+import com.sapient.fsd.refdata.entities.LocationEntity;
 import com.sapient.fsd.refdata.services.LocationService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +14,23 @@ import java.util.List;
 /**
  * Created by agu187 on 1/13/2018.
  */
-//@RestController
-//@RequestMapping("/location")
+@RestController
+@RequestMapping("/location")
 public class LocationController {
 
     @Autowired
     private LocationService locationService;
 
     @GetMapping("list")
-    public List<Location> listCounterParties(){
+    public List<LocationEntity> listCounterParties(){
         return locationService.getAllLocations();
     }
 
     @GetMapping("search")
-    public Location searchById(@Param("id") String id){
-        if(StringUtils.isEmpty(id)){
+    public LocationEntity searchById(@Param("code") String code){
+        if(StringUtils.isEmpty(code)){
             return null;
         }
-        return locationService.findById(id);
+        return locationService.findById(code);
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="REF_COUNTERPARTY")
-public class CounterParty {
+public class CounterPartyEntity {
     @Id
     private String id;
     private String name;

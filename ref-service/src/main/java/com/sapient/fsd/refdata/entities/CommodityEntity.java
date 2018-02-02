@@ -8,7 +8,7 @@ import java.math.BigInteger;
  */
 @Entity
 @Table(name = "REF_COMMODITIES")
-public class Commodity {
+public class CommodityEntity {
     @Id
     private Long id;
     private String code;

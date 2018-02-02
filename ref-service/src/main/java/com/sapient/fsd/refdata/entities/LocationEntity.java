@@ -9,7 +9,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="REF_LOCATIONS")
-public class Location {
+public class LocationEntity {
     @Id
     private String code;
     private String name;
