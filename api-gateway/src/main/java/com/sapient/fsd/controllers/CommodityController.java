@@ -1,6 +1,6 @@
 package com.sapient.fsd.controllers;
 
-import com.sapient.fsd.models.Commodity;
+import com.sapient.fsd.common.models.Commodity;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class CommodityController {
 
     @Autowired
-    private RestTemplate template;
+    private OAuth2RestOperations template;
 
     @GetMapping("list")
     public List<Commodity> listCommodities(){

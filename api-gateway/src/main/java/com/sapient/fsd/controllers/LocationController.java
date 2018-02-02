@@ -1,7 +1,6 @@
 package com.sapient.fsd.controllers;
 
-import com.sapient.fsd.models.Commodity;
-import com.sapient.fsd.models.Location;
+import com.sapient.fsd.common.models.Location;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import javax.jws.WebParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
