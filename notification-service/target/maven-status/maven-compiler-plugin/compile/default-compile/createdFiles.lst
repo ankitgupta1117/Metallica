@@ -1,5 +1,0 @@
-com\sapient\fsd\notification\listener\TradeEventListener.class
-com\sapient\fsd\notification\NotificationApp.class
-com\sapient\fsd\notification\config\JmsConfig.class
-com\sapient\fsd\notification\config\WebSocketConfig.class
-com\sapient\fsd\notification\events\TradeNotification.class
