@@ -18,10 +18,8 @@ export class TradeSearchResultsComponent implements OnInit{
                            'quantity', 'counterParty', 'location','del-icon'];
   private dataset: MatTableDataSource<Trade>;
   
-  constructor(public _matIconRegistry: MatIconRegistry
-                      , private _tradeService: TradeService
+  constructor(private _tradeService: TradeService
                       , private _router: Router){
-    _matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
   }
 
 
@@ -35,9 +33,6 @@ export class TradeSearchResultsComponent implements OnInit{
           console.log("Trade with Id: "+row.id+" deleted.");
           console.log("Before "+that.dataset.data.length);
           that.removeTrade(row);
-          // console.log(that.dataset.data.indexOf(row));
-          // console.log("Before "+that.dataset.data);
-          // that.dataset.data.splice(that.dataset.data.indexOf(row),1);
           console.log(that.dataset.data.length);
         } 
       });

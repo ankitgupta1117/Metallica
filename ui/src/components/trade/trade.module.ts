@@ -48,12 +48,12 @@ import { Router } from '@angular/router';
         MatDatepickerModule, MatNativeDateModule,
         MatSelectModule, MatSnackBarModule,
         MatToolbarModule, 
-        MatIconModule, 
+        // MatIconModule, 
         ReferenceServiceModule,
         PipesModule
     ],
   exports: [TradeComponent],
-  providers:[ReferenceService, MatIconRegistry, MatSnackBar, TradeService, NotificationService]
+  providers:[ReferenceService, MatSnackBar, TradeService, NotificationService]
 })
 export class TradesModule{
 

@@ -39,7 +39,8 @@
   <ng-container matColumnDef="del-icon" (click)="handleRow('details',row)">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let element" style="text-align: center;">
-       <mat-icon fontSet="fa" fontIcon="fa-trash"  aria-hidden="true" (click)="handleRow('delete',element)"> </mat-icon>
+        <i class="material-icons delete-icon" (click)="handleRow('delete',element)">delete</i>
+       <!-- <mat-icon fontSet="fa" fontIcon="fa-trash"  aria-hidden="true" > </mat-icon> -->
     </mat-cell>
   </ng-container>
 

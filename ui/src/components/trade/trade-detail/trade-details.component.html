@@ -1,13 +1,15 @@
 <mat-card class="main-container mat-elevation-z8">
         <!--color="primary" style="flex: 1 1 auto;"-->
         <mat-toolbar class="trade-id-toolbar"> 
-                Trade Id: {{ trade.id }}
-                
-                        <mat-icon fontSet="fa" fontIcon="fa-edit" style="float: right;" (click)="changeMode('EDIT')"> </mat-icon>
-                
+                <span>Trade ID: {{ trade.id }} </span>
+                <span class="trade-id-spacer"></span>
+                <div style="float: right;">
+                    <i class="material-icons" [routerLink]="['/newtrade']" >add</i>
+                    <i class="material-icons" (click)="changeMode('EDIT')">mode_edit</i>
+                </div>
         </mat-toolbar>
         
-            <div>
+            <div style="padding-top: 10px;">
                 <form #edittradeform="ngForm" (ngSubmit)="updateTrade()">
     
                     <mat-form-field floatLabel="always">

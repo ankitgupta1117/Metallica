@@ -9,9 +9,9 @@ import {Commodity} from '../../models/Commodity';
 @Injectable()
 export class ReferenceService{
 
-  private locationUrl = '/location';
-  private counterPartyUrl = '/counterparty';
-  private commodityUrl = '/commodity';
+  private locationUrl = '/ref/location';
+  private counterPartyUrl = '/ref/counterparty';
+  private commodityUrl = '/ref/commodity';
 
   constructor(private _httpClient: HttpClient, private  _config: Configuration){
 

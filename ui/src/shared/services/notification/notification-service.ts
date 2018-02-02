@@ -26,11 +26,11 @@ export class NotificationService {
         let stompClient = this.marketClient;
         let sub = new Subject<MarketDataEvent>();
 
-        // stompClient.connect({}, function (frame) {
-        //     stompClient.subscribe('/market/feeds', function (data) {
-        //         sub.next(JSON.parse(data.body));
-        //     });
-        // });
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe('/market/feeds', function (data) {
+                sub.next(JSON.parse(data.body));
+            });
+        });
         return sub;
     }
 

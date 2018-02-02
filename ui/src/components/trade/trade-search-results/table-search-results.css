@@ -35,9 +35,14 @@
 .fa{
   font-size: large;
 }
-.fa-trash{
+.delete-icon{
   display: none;
 }
-.mat-row:hover .fa-trash{
+
+.mat-cell:hover {
+  cursor: pointer;
+}
+.mat-row:hover .delete-icon{
   display: inline;
+  cursor: pointer;
 }

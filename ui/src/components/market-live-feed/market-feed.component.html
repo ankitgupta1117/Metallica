@@ -1,8 +1,10 @@
 <mat-card class="market-feed">           
     <div *ngIf="isPositive" style="display: inline" >
+        <!-- <i class="material-icons up-arrow-green">arrow_drop_up</i> -->
           <mat-icon fontSet="fa" fontIcon="fa-arrow-up" class="up-arrow-green" aria-hidden="true"> </mat-icon>
         </div>
         <div *ngIf="!isPositive" style="display: inline"> 
+                <!-- <i class="material-icons down-arrow-red">arrow_drop_down</i> -->
         <mat-icon fontSet="fa" fontIcon="fa-arrow-down" class="down-arrow-red" aria-hidden="true"> </mat-icon>
     </div>
     <!-- {{ isPositive }} -->

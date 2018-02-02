@@ -1,0 +1,10 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+  }
+
+.pad10{
+    padding: 10px;
+}
+.pad20{
+    padding: 20px;
+}

@@ -28,10 +28,7 @@ export class TradeDetailsComponent implements OnInit{
   constructor(private _refService: ReferenceService,
            private _route: ActivatedRoute, 
            private _tradeService: TradeService,
-           public _matIconRegistry: MatIconRegistry,
            private _datePipe: DatePipe){
-             
-                  _matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
     this.isDisabled = true;
     this._route.params.subscribe(params => {
         this.getDetails(params['id']);
