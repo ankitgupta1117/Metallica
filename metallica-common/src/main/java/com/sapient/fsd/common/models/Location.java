@@ -4,6 +4,16 @@ package com.sapient.fsd.common.models;
  * Created by agu187 on 1/11/2018.
  */
 public class Location {
+
+    public Location(){
+
+    }
+
+    public Location(String code, String name){
+        this.code = code;
+        this.name = name;
+    }
+
     private String code;
     private String name;
 

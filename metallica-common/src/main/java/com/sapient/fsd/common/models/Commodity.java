@@ -7,6 +7,15 @@ public class Commodity {
     private String code;
     private String description;
 
+    public Commodity(String code, String description) {
+        this.code = code;
+        this.description  =description;
+    }
+
+    public Commodity(){
+
+    }
+
     public String getCode() {
         return code;
     }
