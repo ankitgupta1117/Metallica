@@ -17,7 +17,6 @@ import {RouterModule} from '@angular/router';
 import {TRADE_ROUTES} from '../../app/app.routes';
 import {TradeSearchResultsComponent} from './trade-search-results/trade-search-results.component';
 import {TradeSearchComponent} from './trade-search/trade-search.component';
-import {ReferenceServiceModule} from '../../shared/services/refrerence-service/reference-service.module';
 import { CommodityPipe } from '../../shared/pipes/commodity.pipe';
 import { ReferenceService } from '../../shared/services/refrerence-service/reference-service';
 import { PipesModule } from '../../shared/pipes/PipesModules';
@@ -25,6 +24,8 @@ import { TradeService } from '../../shared/services/trade-service/trade-service'
 import { NotificationService } from '../../shared/services/notification/notification-service';
 import { TradeNotificationComponent } from './trade-notificaition/trade-notification.component';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ServicesModule } from '../../shared/services/services.module';
 
 @NgModule({
     declarations: [TradeComponent, 
@@ -48,12 +49,11 @@ import { Router } from '@angular/router';
         MatDatepickerModule, MatNativeDateModule,
         MatSelectModule, MatSnackBarModule,
         MatToolbarModule, 
-        // MatIconModule, 
-        ReferenceServiceModule,
+        ServicesModule,
         PipesModule
     ],
   exports: [TradeComponent],
-  providers:[ReferenceService, MatSnackBar, TradeService, NotificationService]
+  providers:[MatSnackBar, TradeService, NotificationService]
 })
 export class TradesModule{
 

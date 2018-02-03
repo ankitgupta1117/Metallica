@@ -18,12 +18,12 @@ import { DatePipe } from '@angular/common';
 })
 export class TradeDetailsComponent implements OnInit{
 
-  private trade: Trade = new Trade();
-  private isDisabled: boolean;
-  private locations: Location[] =[];
-  private counterparties: CounterParty[] = [];
-  private commodities: Commodity[] = [];
-  private tradeDate: Date;
+  public trade: Trade = new Trade();
+  public isDisabled: boolean;
+  public locations: Location[] =[];
+  public counterparties: CounterParty[] = [];
+  public commodities: Commodity[] = [];
+  public tradeDate: Date;
 
   constructor(private _refService: ReferenceService,
            private _route: ActivatedRoute, 

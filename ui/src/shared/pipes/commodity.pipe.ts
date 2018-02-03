@@ -1,20 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Commodity } from '../models/Commodity';
-import { ReferenceService } from '../../shared/services/refrerence-service/reference-service';
+import { ReferenceDataStore } from '../services/ref-data-store';
 
 @Pipe({name: 'commoditypipe'})
 export class CommodityPipe implements PipeTransform{
         
     private _commodities: Map<string, string> = new Map();
-    private _promise = this._refservice.getAllCommodities().toPromise();
+    // private _promise = this._refservice.getAllCommodities().toPromise();
 
-    constructor(private _refservice: ReferenceService){
-        this._promise.then(
-            (data: Commodity[])=>{
-                data.forEach( (c:Commodity)=> this._commodities.set(c.code, c.description));
-            }
-        );
+    constructor(private refDataStore: ReferenceDataStore){
+        this.refDataStore.getCommodities()
+                            .forEach((c:Commodity)=> this._commodities.set(c.code, c.description));
+        // this._promise.then(
+        //     (data: Commodity[])=>{
+        //         data.forEach( (c:Commodity)=> this._commodities.set(c.code, c.description));
+        //     }
+        // );
         // this._refservice.getAllCommodities().subscribe();
     }
 

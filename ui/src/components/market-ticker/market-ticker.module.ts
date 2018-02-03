@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { MatToolbarModule } from "@angular/material";
 import { ReferenceService } from "../../shared/services/refrerence-service/reference-service";
 import { NotificationService } from "../../shared/services/notification/notification-service";
+import { ReferenceDataStore } from "../../shared/services/ref-data-store";
 
 @NgModule({
     declarations: [
@@ -16,6 +17,6 @@ import { NotificationService } from "../../shared/services/notification/notifica
         
     ],
     exports: [MarketTickerComponent],
-    providers: [ReferenceService, NotificationService]
+    providers: [ReferenceService, NotificationService, ReferenceDataStore]
 })
 export class MarketTickerModule{}

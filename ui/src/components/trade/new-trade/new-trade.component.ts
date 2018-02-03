@@ -18,12 +18,12 @@ import { Trade } from '../../../shared/models/trade';
 export class NewTradeComponent implements OnInit{
    
     selectedSide:String = '';
-    private sides = [['B', "Buy"], ['S', "Sell"] ];
+    public sides = [['B', "Buy"], ['S', "Sell"] ];
     trade: Trade = new Trade();
 
-    private locations: Location[] =[];
-    private counterparties: CounterParty[] = [];
-    private commodities: Commodity[] = [];
+    public locations: Location[] =[];
+    public counterparties: CounterParty[] = [];
+    public commodities: Commodity[] = [];
 
 
     ngOnInit(){

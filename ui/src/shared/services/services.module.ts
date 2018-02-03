@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
-import {ReferenceService} from './reference-service';
-import {Configuration} from '../Configuration';
-import {Location} from '../../models/location';
+// import {ReferenceService} from './reference-service';
+import {Configuration} from './Configuration';
+import {Location} from '../models/location';
 @NgModule({
   /*declarations: [
     ReferenceService
@@ -14,6 +14,6 @@ import {Location} from '../../models/location';
     Configuration
   ]
 })
-export class ReferenceServiceModule{
+export class ServicesModule{
 
 }

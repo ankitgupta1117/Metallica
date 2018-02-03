@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,14 +41,12 @@ public class ReferenceDataService {
     }
 
 
+
     public List<String> getAllCommodities(){
-        ParameterizedTypeReference<Resources<Commodity>> ptr = new ParameterizedTypeReference<Resources<Commodity>>(){};
-        ResponseEntity<Resources<Commodity>> response = restTemplate.exchange("http://"+getRefServiceUrl()+"/commodities/", HttpMethod.GET,null,ptr);
-        return response.getBody()
-                .getContent()
-                .stream()
-                .map(Commodity::getCode)
-                .collect(Collectors.toList());
+        ResponseEntity<Commodity[]> response = restTemplate.getForEntity("http://"+getRefServiceUrl()+"/commodity/list/", Commodity[].class);
+        return Arrays.stream(response.getBody())
+                    .map(Commodity::getCode)
+                    .collect(Collectors.toList());
     }
 
 }

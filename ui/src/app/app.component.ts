@@ -1,4 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import { ReferenceDataStore } from '../shared/services/ref-data-store';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,13 @@ import {Component, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  ngOnInit(): void {
+    // this.refDataStore.init();
+  }
   title = 'Mettalica';
+
+  constructor(private refDataStore: ReferenceDataStore){
+    // this.refDataStore.init();
+  }
 }

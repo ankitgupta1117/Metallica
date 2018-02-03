@@ -10,6 +10,7 @@ import { Trade } from '../../../shared/models/trade';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { ReferenceDataStore } from '../../../shared/services/ref-data-store';
 
 @Component({
   selector: 'trade-search',
@@ -19,16 +20,16 @@ import { MatSnackBar } from '@angular/material';
 })
 export class TradeSearchComponent implements  OnInit{
 
-  private locations: Location[] =[ {code: '',
+  public locations: Location[] =[ {code: '',
           name: 'All'}];
-  private counterparties: CounterParty[] = [{id: '', name: 'All'}];
-  private commodities: Commodity[] = [{code: '', description: 'All'}];
-  private searchForm: FormGroup;
+  public counterparties: CounterParty[] = [{id: '', name: 'All'}];
+  public commodities: Commodity[] = [{code: '', description: 'All'}];
+  public searchForm: FormGroup;
   @Output()
   private onSearch: EventEmitter<Trade[]> = new EventEmitter();
 
 
-  constructor(private _refService : ReferenceService, private _tradeService: TradeService,
+  constructor(private refData: ReferenceDataStore, private _tradeService: TradeService,
                             private _datePipe : DatePipe, private _snakBar: MatSnackBar){
   }
 
@@ -42,23 +43,10 @@ export class TradeSearchComponent implements  OnInit{
       location: new FormControl('')
     });
 
-    this._refService.getAllLocations().subscribe(
-      (data: Location[]) => {
-        this.locations.push.apply(this.locations,data);
-      }
-    );
-
-    this._refService.getAllCommodities().subscribe(
-      (data: Commodity[]) => {
-        this.commodities.push.apply(this.commodities,data);
-      }
-    );
-
-    this._refService.getAllCounterParties().subscribe(
-      (data: CounterParty[]) => {
-        this.counterparties.push.apply(this.counterparties,data);
-      }
-    );
+    this.locations.push.apply(this.locations,this.refData.getLocations());
+    this.commodities.push.apply(this.commodities, this.refData.getCommodities());
+    this.counterparties.push.apply(this.counterparties,this.refData.getCounterparties());
+  
     console.log("Search component initialized");
   }
 

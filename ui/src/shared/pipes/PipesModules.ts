@@ -4,7 +4,7 @@ import { CommodityPipe } from "./commodity.pipe";
 import { LocationPipe } from "./location.pipe";
 import { ToDatePipe } from "./to-date.pipe";
 import { SidePipe } from "./side.pipe";
-import { ReferenceServiceModule } from "../../shared/services/refrerence-service/reference-service.module";
+import { ReferenceDataStore } from "../services/ref-data-store";
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { ReferenceServiceModule } from "../../shared/services/refrerence-service
         CommodityPipe, LocationPipe, ToDatePipe, SidePipe
     ],
     providers: [
-        ReferenceServiceModule
+        ReferenceDataStore
     ]
 })
 export class PipesModule{}
