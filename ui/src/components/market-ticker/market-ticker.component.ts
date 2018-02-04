@@ -6,6 +6,7 @@ import { ReferenceService } from '../../shared/services/refrerence-service/refer
 import { Commodity } from '../../shared/models/Commodity';
 import { NotificationService } from "../../shared/services/notification/notification-service";
 import { MarketDataEvent } from '../../shared/events/marketFeedEvent';
+import { ReferenceDataStore } from '../../shared/services/ref-data-store';
 
 @Component({
     selector: 'market-ticker',
@@ -17,16 +18,12 @@ export class MarketTickerComponent {
     private tickerData : Map< string, {price: number, isup: boolean}> = new Map();
     private tickers: string[] = [];
     private codeToDescMap : Map< string, string> = new Map();
-    constructor(private _refService : ReferenceService, private _notificationService: NotificationService){
-        this._refService.getAllCommodities().toPromise().then(
-            (data: Commodity[]) =>{
-                data.forEach( (commodity: Commodity) =>{
+    constructor(private refData : ReferenceDataStore, private _notificationService: NotificationService){
+        this.refData.getCommodities().forEach( (commodity: Commodity) =>{
                     this.tickerData.set(commodity.description, {price: 100, isup: false});
                     this.tickers.push(commodity.description);
                     this.codeToDescMap.set(commodity.code, commodity.description);
                 } );
-            }
-        );
         let that = this;
         
         this._notificationService.getMarketData().subscribe({

@@ -28,8 +28,8 @@ public class JmsNotifier {
         jmsTemplate.convertAndSend(destinationQueue, new TradeEvent(TradeEventType.DELETE, tradeId.toString()));
     }
 
-    public void sendTradeUpdateEvent(Trade trade){
-        jmsTemplate.convertAndSend(destinationQueue, new TradeEvent(TradeEventType.UPDATE, trade.toString()));
+    public void sendTradeUpdateEvent(Long tradeId){
+        jmsTemplate.convertAndSend(destinationQueue, new TradeEvent(TradeEventType.UPDATE, tradeId.toString()));
     }
 
 }

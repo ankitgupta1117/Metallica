@@ -4,6 +4,7 @@ import com.sapient.fsd.trade.entities.Trade;
 import com.sapient.fsd.trade.exceptions.InvalidTradeRequestException;
 import com.sapient.fsd.trade.models.CreateTradeRequest;
 import com.sapient.fsd.trade.models.TradeVO;
+import com.sapient.fsd.trade.models.UpdateTradeRequest;
 import com.sapient.fsd.trade.services.TradeService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -44,6 +45,16 @@ public class TradeController {
         }
     }
 
+    @PutMapping()
+    public void upateTrade(@RequestBody UpdateTradeRequest updateTradeRequest) throws InvalidTradeRequestException {
+        if(validate(updateTradeRequest)){
+            tradeService.updateTrade(updateTradeRequest);
+        }else{
+            LOG.error("Invalid create trade request received. "+updateTradeRequest);
+            throw new InvalidTradeRequestException("Invalid create trade request recieved.");
+        }
+    }
+
     @GetMapping()
     public TradeVO getTrade(@RequestParam String id){
         return tradeService.getTrade(Long.valueOf(id));
@@ -54,6 +65,22 @@ public class TradeController {
         tradeService.deleteTrade(Long.valueOf(id));
     }
     private boolean validate(CreateTradeRequest request) {
+        if(StringUtils.isNotBlank(request.getSide())
+                && StringUtils.isNotBlank(request.getCntrParty())
+                && StringUtils.isNotBlank(request.getCommodity())
+                && StringUtils.isNotBlank(request.getLocation())
+                && (null != request.getPrice() && request.getPrice() > 0)
+                && StringUtils.isNotBlank(request.getTradeDate())
+                && (null != request.getQuantity() && request.getQuantity() > 0)) {
+            // Request is valid.
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    private boolean validate(UpdateTradeRequest request) {
         if(StringUtils.isNotBlank(request.getSide())
                 && StringUtils.isNotBlank(request.getCntrParty())
                 && StringUtils.isNotBlank(request.getCommodity())

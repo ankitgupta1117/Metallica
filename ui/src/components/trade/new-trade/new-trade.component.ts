@@ -7,6 +7,7 @@ import { ReferenceService } from '../../../shared/services/refrerence-service/re
 import { TradeService } from '../../../shared/services/trade-service/trade-service';
 import { DatePipe } from '@angular/common';
 import { Trade } from '../../../shared/models/trade';
+import { ReferenceDataStore } from '../../../shared/services/ref-data-store';
 
 
 @Component({
@@ -27,26 +28,12 @@ export class NewTradeComponent implements OnInit{
 
 
     ngOnInit(){
-         this._refService.getAllCommodities().subscribe(
-            (data: Commodity[]) => {
-              this.commodities.push.apply(this.commodities,data);
-            }
-          );
-
-          this._refService.getAllCounterParties().subscribe(
-            (data: CounterParty[]) => {
-              this.counterparties.push.apply(this.counterparties,data);
-            }
-          );
-
-          this._refService.getAllLocations().subscribe(
-            (data: Location[]) => {
-              this.locations.push.apply(this.locations,data);
-            }
-          );
+      this.locations.push.apply(this.locations,this.refData.getLocations());
+      this.commodities.push.apply(this.commodities, this.refData.getCommodities());
+      this.counterparties.push.apply(this.counterparties,this.refData.getCounterparties());
     }
 
-    constructor(private _refService: ReferenceService, 
+    constructor(private refData: ReferenceDataStore, 
                                     private _tradeService: TradeService,
                                     private _datePipe: DatePipe){
     }

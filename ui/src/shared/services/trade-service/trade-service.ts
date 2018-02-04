@@ -57,4 +57,9 @@ export class TradeService{
     let url = this._config.server + this.tradesUrl;
     return this._httpClient.post<Trade>(url, trade);
   }
+
+  public updateTrade(trade: Trade){
+    let url = this._config.server + this.tradesUrl;
+    return this._httpClient.put<Trade>(url, trade);
+  }
 }

@@ -10,6 +10,7 @@ import { MarketFeedModule } from '../components/market-live-feed/market-feed.mod
 import { MarketTickerModule } from '../components/market-ticker/market-ticker.module';
 import { ReferenceDataStore } from '../shared/services/ref-data-store';
 import { ServicesModule } from '../shared/services/services.module';
+import { UserService } from '../shared/services/user-service/user-service';
 
 export function initializeDataStore(refDataStore: ReferenceDataStore){
   return () => refDataStore.init();
@@ -28,6 +29,7 @@ export function initializeDataStore(refDataStore: ReferenceDataStore){
     RouterModule.forRoot(APP_ROUTES)
   ],
   providers: [
+    UserService,
     ReferenceDataStore,
     {
       provide: APP_INITIALIZER,

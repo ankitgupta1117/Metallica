@@ -41,24 +41,47 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_user_service_user_service__ = __webpack_require__("../../../../../src/shared/services/user-service/user-service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(refDataStore, userService) {
+        this.refDataStore = refDataStore;
+        this.userService = userService;
         this.title = 'Mettalica';
+        this.userName = "";
+        // this.refDataStore.init();
+        var that = this;
+        this.userService.getUserName().subscribe(function (data) {
+            console.log("USER: " + data);
+            that.userName = data;
+        });
     }
+    AppComponent.prototype.ngOnInit = function () {
+        // this.refDataStore.init();
+    };
+    AppComponent.prototype.logout = function () {
+        this.userService.logout().subscribe(function (data) { console.log("Logout successfull"); });
+    };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
-            template: "\n  <mat-toolbar color=\"primary\"> \n  \n  <span [routerLink]=\"['/']\" ><b>Metallica</b> </span>\n  <span class=\"toolbar-spacer\"></span>\n  <i class=\"material-icons pad10\" [routerLink]=\"['/']\">home</i>\n  <i class=\"material-icons pad10\">perm_identity</i>\n  <i class=\"material-icons pad10\">power_settings_new</i>\n  </mat-toolbar>\n  <market-ticker> </market-ticker>\n  <tab-comp> </tab-comp>\n  ",
+            template: "\n  <mat-toolbar color=\"primary\"> \n  \n  <span [routerLink]=\"['/']\" ><b>Metallica</b> </span>\n  <span class=\"toolbar-spacer\"></span>\n<!--  <i class=\"material-icons  pad10\" [routerLink]=\"['/']\">home</i> -->\n  <b> {{ userName }} </b>\n  <i class=\"material-icons pad10\">perm_identity</i>\n  <!-- <i class=\"material-icons pad10\" (click)=\"logout()\">power_settings_new</i>  -->\n  </mat-toolbar>\n  <market-ticker> </market-ticker>\n  <tab-comp> </tab-comp>\n  ",
             styles: [__webpack_require__("../../../../../src/app/app.component.css")],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewEncapsulation */].Emulated
-        })
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_ref_data_store__["a" /* ReferenceDataStore */], __WEBPACK_IMPORTED_MODULE_2__shared_services_user_service_user_service__["a" /* UserService */]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -71,6 +94,7 @@ var AppComponent = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export initializeDataStore */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
@@ -81,6 +105,9 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_market_ticker_market_ticker_module__ = __webpack_require__("../../../../../src/components/market-ticker/market-ticker.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__shared_services_services_module__ = __webpack_require__("../../../../../src/shared/services/services.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__shared_services_user_service_user_service__ = __webpack_require__("../../../../../src/shared/services/user-service/user-service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -96,6 +123,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
+
+function initializeDataStore(refDataStore) {
+    return function () { return refDataStore.init(); };
+}
 var AppModule = (function () {
     function AppModule() {
     }
@@ -109,9 +142,19 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_4__components_tabs_tabs_module__["a" /* TabsModule */], __WEBPACK_IMPORTED_MODULE_5__components_trade_trade_module__["a" /* TradesModule */],
                 __WEBPACK_IMPORTED_MODULE_8__components_market_ticker_market_ticker_module__["a" /* MarketTickerModule */],
+                __WEBPACK_IMPORTED_MODULE_10__shared_services_services_module__["a" /* ServicesModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* RouterModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_routes__["a" /* APP_ROUTES */])
             ],
-            providers: [],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_11__shared_services_user_service_user_service__["a" /* UserService */],
+                __WEBPACK_IMPORTED_MODULE_9__shared_services_ref_data_store__["a" /* ReferenceDataStore */],
+                {
+                    provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["d" /* APP_INITIALIZER */],
+                    useFactory: initializeDataStore,
+                    deps: [__WEBPACK_IMPORTED_MODULE_9__shared_services_ref_data_store__["a" /* ReferenceDataStore */]],
+                    multi: true
+                }
+            ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -297,8 +340,8 @@ module.exports = "<mat-toolbar>\r\n    \r\n        <market-feed *ngFor=\"let fee
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MarketTickerComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_notification_notification_service__ = __webpack_require__("../../../../../src/shared/services/notification/notification-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_notification_notification_service__ = __webpack_require__("../../../../../src/shared/services/notification/notification-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -312,19 +355,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MarketTickerComponent = (function () {
-    function MarketTickerComponent(_refService, _notificationService) {
+    function MarketTickerComponent(refData, _notificationService) {
         var _this = this;
-        this._refService = _refService;
+        this.refData = refData;
         this._notificationService = _notificationService;
         this.tickerData = new Map();
         this.tickers = [];
         this.codeToDescMap = new Map();
-        this._refService.getAllCommodities().toPromise().then(function (data) {
-            data.forEach(function (commodity) {
-                _this.tickerData.set(commodity.description, { price: 100, isup: false });
-                _this.tickers.push(commodity.description);
-                _this.codeToDescMap.set(commodity.code, commodity.description);
-            });
+        this.refData.getCommodities().forEach(function (commodity) {
+            _this.tickerData.set(commodity.description, { price: 100, isup: false });
+            _this.tickers.push(commodity.description);
+            _this.codeToDescMap.set(commodity.code, commodity.description);
         });
         var that = this;
         this._notificationService.getMarketData().subscribe({
@@ -343,7 +384,7 @@ var MarketTickerComponent = (function () {
             template: __webpack_require__("../../../../../src/components/market-ticker/market-ticker.component.html"),
             styles: [__webpack_require__("../../../../../src/components/market-ticker/market-ticker.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */], __WEBPACK_IMPORTED_MODULE_2__shared_services_notification_notification_service__["a" /* NotificationService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__shared_services_ref_data_store__["a" /* ReferenceDataStore */], __WEBPACK_IMPORTED_MODULE_1__shared_services_notification_notification_service__["a" /* NotificationService */]])
     ], MarketTickerComponent);
     return MarketTickerComponent;
 }());
@@ -364,12 +405,14 @@ var MarketTickerComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_services_notification_notification_service__ = __webpack_require__("../../../../../src/shared/services/notification/notification-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -390,7 +433,7 @@ var MarketTickerModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_2__market_live_feed_market_feed_module__["a" /* MarketFeedModule */], __WEBPACK_IMPORTED_MODULE_3__angular_common__["b" /* CommonModule */]
             ],
             exports: [__WEBPACK_IMPORTED_MODULE_1__market_ticker_component__["a" /* MarketTickerComponent */]],
-            providers: [__WEBPACK_IMPORTED_MODULE_5__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */], __WEBPACK_IMPORTED_MODULE_6__shared_services_notification_notification_service__["a" /* NotificationService */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_5__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */], __WEBPACK_IMPORTED_MODULE_6__shared_services_notification_notification_service__["a" /* NotificationService */], __WEBPACK_IMPORTED_MODULE_7__shared_services_ref_data_store__["a" /* ReferenceDataStore */]]
         })
     ], MarketTickerModule);
     return MarketTickerModule;
@@ -518,10 +561,10 @@ module.exports = "<mat-card class=\"main-container mat-elevation-z8\">\r\n    <!
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewTradeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_services_trade_service_trade_service__ = __webpack_require__("../../../../../src/shared/services/trade-service/trade-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_models_trade__ = __webpack_require__("../../../../../src/shared/models/trade.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_trade_service_trade_service__ = __webpack_require__("../../../../../src/shared/services/trade-service/trade-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_models_trade__ = __webpack_require__("../../../../../src/shared/models/trade.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -537,28 +580,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var NewTradeComponent = (function () {
-    function NewTradeComponent(_refService, _tradeService, _datePipe) {
-        this._refService = _refService;
+    function NewTradeComponent(refData, _tradeService, _datePipe) {
+        this.refData = refData;
         this._tradeService = _tradeService;
         this._datePipe = _datePipe;
         this.selectedSide = '';
         this.sides = [['B', "Buy"], ['S', "Sell"]];
-        this.trade = new __WEBPACK_IMPORTED_MODULE_4__shared_models_trade__["a" /* Trade */]();
+        this.trade = new __WEBPACK_IMPORTED_MODULE_3__shared_models_trade__["a" /* Trade */]();
         this.locations = [];
         this.counterparties = [];
         this.commodities = [];
     }
     NewTradeComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._refService.getAllCommodities().subscribe(function (data) {
-            _this.commodities.push.apply(_this.commodities, data);
-        });
-        this._refService.getAllCounterParties().subscribe(function (data) {
-            _this.counterparties.push.apply(_this.counterparties, data);
-        });
-        this._refService.getAllLocations().subscribe(function (data) {
-            _this.locations.push.apply(_this.locations, data);
-        });
+        this.locations.push.apply(this.locations, this.refData.getLocations());
+        this.commodities.push.apply(this.commodities, this.refData.getCommodities());
+        this.counterparties.push.apply(this.counterparties, this.refData.getCounterparties());
     };
     NewTradeComponent.prototype.submit = function () {
         console.log(this.trade);
@@ -572,11 +608,11 @@ var NewTradeComponent = (function () {
             selector: 'new-trade',
             template: __webpack_require__("../../../../../src/components/trade/new-trade/new-trade.component.html"),
             styles: [__webpack_require__("../../../../../src/components/trade/new-trade/new-trade.component.css")],
-            providers: [__WEBPACK_IMPORTED_MODULE_3__angular_common__["d" /* DatePipe */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* DatePipe */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */],
-            __WEBPACK_IMPORTED_MODULE_2__shared_services_trade_service_trade_service__["a" /* TradeService */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_common__["d" /* DatePipe */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__shared_services_ref_data_store__["a" /* ReferenceDataStore */],
+            __WEBPACK_IMPORTED_MODULE_1__shared_services_trade_service_trade_service__["a" /* TradeService */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_common__["d" /* DatePipe */]])
     ], NewTradeComponent);
     return NewTradeComponent;
 }());
@@ -606,7 +642,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/components/trade/trade-detail/trade-details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"main-container mat-elevation-z8\">\r\n        <!--color=\"primary\" style=\"flex: 1 1 auto;\"-->\r\n        <mat-toolbar class=\"trade-id-toolbar\"> \r\n                <span>Trade ID: {{ trade.id }} </span>\r\n                <span class=\"trade-id-spacer\"></span>\r\n                <div style=\"float: right;\">\r\n                    <i class=\"material-icons\" [routerLink]=\"['/newtrade']\" >add</i>\r\n                    <i class=\"material-icons\" (click)=\"changeMode('EDIT')\">mode_edit</i>\r\n                </div>\r\n        </mat-toolbar>\r\n        \r\n            <div style=\"padding-top: 10px;\">\r\n                <form #edittradeform=\"ngForm\" (ngSubmit)=\"updateTrade()\">\r\n    \r\n                    <mat-form-field floatLabel=\"always\">\r\n    \r\n                        <mat-label>\r\n                            <b>Trade Date </b>\r\n                        </mat-label>\r\n                        <input matInput name=\"tradedate\" [matDatepicker]=\"tradeDatePicker\" ngControl=\"tradedate\" [(ngModel)]=\"tradeDate\" disabled required>\r\n                        <mat-datepicker-toggle matSuffix [for]=\"tradeDatePicker\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #tradeDatePicker [disabled]=\"isDisabled\"></mat-datepicker>\r\n                    </mat-form-field>\r\n                    <div>\r\n                        <mat-form-field floatLabel=\"always\">\r\n                            <mat-label><b>Commodity</b></mat-label>\r\n                            <!--formControlName=\"commodity\" -->\r\n                            <mat-select [(ngModel)]=\"trade.commodity\" name=\"commodity\"  [disabled]=\"isDisabled\">\r\n                                <mat-option *ngFor=\"let commodity of commodities\" [value]=\"commodity.code\">{{commodity.description}}</mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                        <label>Side: </label>\r\n                        <mat-radio-group class=\"example-radio-group\" layout-align=\"start center\" [(ngModel)]=\"trade.side\" name=\"sides\" [disabled]=\"isDisabled\">\r\n    \r\n                            <mat-radio-button class=\"example-radio-button\" *ngFor=\"let side of sides\" [value]=\"side[0]\" labelPosition=\"after\"> {{side[1]}}\r\n                            </mat-radio-button>\r\n                        </mat-radio-group>\r\n                    </div>\r\n                    <div>\r\n                        <br>\r\n                    </div>\r\n                    <div> \r\n                        <mat-form-field floatLabel=\"always\">\r\n                                <mat-label><b>Counterparty</b></mat-label>\r\n                                <mat-select [disabled]=\"isDisabled\" [(ngModel)]=\"trade.cntrParty\" name=\"counterparty\">\r\n                                    <mat-option *ngFor=\"let counterparty of counterparties\" [value]=\"counterparty.id\">{{counterparty.name}}</mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                        <mat-form-field floatLabel=\"always\">\r\n                            <mat-label>\r\n                                <b>Price</b>\r\n                            </mat-label>\r\n                            <input [disabled]=\"isDisabled\" matInput name=\"price\" ngControl=\"price\" [(ngModel)]=\"trade.price\" required>\r\n                            <span matSuffix>USD</span>\r\n                        </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                        <mat-form-field floatLabel=\"always\">\r\n                            <mat-label>\r\n                                <b>Quantity</b>\r\n                            </mat-label>\r\n                            <input matInput name=\"qty\" [disabled]=\"isDisabled\" ngControl=\"qty\" [(ngModel)]=\"trade.quantity\" required>\r\n                        </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                            <mat-form-field floatLabel=\"always\">\r\n                                    <mat-label><b>Location</b></mat-label>\r\n                                    <mat-select ngControl=\"location\" [disabled]=\"isDisabled\" [(ngModel)]=\"trade.location\" required name=\"location\">\r\n                                        <mat-option *ngFor=\"let location of locations\" [value]=\"location.code\">{{location.name}}</mat-option>\r\n                                    </mat-select>\r\n                                </mat-form-field>\r\n                    </div>\r\n                    <div [style.display]=\"showButtons()\">\r\n                        <button mat-raised-button color=\"accent\" text-transform=\"uppercase\" (click)=\"changeMode('DETAIL')\"> Cancel</button>\r\n                        <button mat-raised-button color=\"primary\" text-transform=\"uppercase\" type=\"submit\"> Save</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        \r\n    </mat-card>"
+module.exports = "<mat-card class=\"main-container mat-elevation-z8\">\r\n        <!--color=\"primary\" style=\"flex: 1 1 auto;\"-->\r\n        <mat-toolbar class=\"trade-id-toolbar\"> \r\n                <span>Trade ID: {{ trade.id }} </span>\r\n                <span class=\"trade-id-spacer\"></span>\r\n                <div style=\"float: right;\">\r\n                    <i class=\"material-icons\" [routerLink]=\"['/newtrade']\" >add</i>\r\n                    <i class=\"material-icons\" (click)=\"changeMode('EDIT')\">mode_edit</i>\r\n                </div>\r\n        </mat-toolbar>\r\n        \r\n            <div style=\"padding-top: 10px;\">\r\n                <form #edittradeform=\"ngForm\" (ngSubmit)=\"updateTrade()\">\r\n    \r\n                    <mat-form-field floatLabel=\"always\">\r\n    \r\n                        <mat-label>\r\n                            <b>Trade Date </b>\r\n                        </mat-label>\r\n                        <input matInput name=\"tradedate\" [matDatepicker]=\"tradeDatePicker\" ngControl=\"tradedate\" [(ngModel)]=\"tradeDate\" disabled required>\r\n                        <mat-datepicker-toggle matSuffix [for]=\"tradeDatePicker\"></mat-datepicker-toggle>\r\n                        <mat-datepicker #tradeDatePicker [disabled]=\"isDisabled\"></mat-datepicker>\r\n                    </mat-form-field>\r\n                    <div>\r\n                        <mat-form-field floatLabel=\"always\">\r\n                            <mat-label><b>Commodity</b></mat-label>\r\n                            <!--formControlName=\"commodity\" -->\r\n                            <mat-select [(ngModel)]=\"trade.commodity\" name=\"commodity\"  [disabled]=\"isDisabled\">\r\n                                <mat-option *ngFor=\"let commodity of commodities\" [value]=\"commodity.code\">{{commodity.description}}</mat-option>\r\n                            </mat-select>\r\n                        </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                        <label>Side: </label>\r\n                        <mat-radio-group class=\"example-radio-group\" layout-align=\"start center\" [(ngModel)]=\"trade.side\" name=\"sides\" [disabled]=\"isDisabled\">\r\n    \r\n                            <mat-radio-button class=\"example-radio-button\" *ngFor=\"let side of sides\" [value]=\"side[0]\" labelPosition=\"after\"> {{side[1]}}\r\n                            </mat-radio-button>\r\n                        </mat-radio-group>\r\n                    </div>\r\n                    <div>\r\n                        <br>\r\n                    </div>\r\n                    <div> \r\n                        <mat-form-field floatLabel=\"always\">\r\n                                <mat-label><b>Counterparty</b></mat-label>\r\n                                <mat-select [disabled]=\"isDisabled\" [(ngModel)]=\"trade.cntrParty\" name=\"counterparty\">\r\n                                    <mat-option *ngFor=\"let counterparty of counterparties\" [value]=\"counterparty.id\">{{counterparty.name}}</mat-option>\r\n                                </mat-select>\r\n                            </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                        <mat-form-field floatLabel=\"always\">\r\n                            <mat-label>\r\n                                <b>Price</b>\r\n                            </mat-label>\r\n                            <input [disabled]=\"isDisabled\" matInput name=\"price\" ngControl=\"price\" [(ngModel)]=\"trade.price\" required>\r\n                            <span matSuffix>USD</span>\r\n                        </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                        <mat-form-field floatLabel=\"always\">\r\n                            <mat-label>\r\n                                <b>Quantity</b>\r\n                            </mat-label>\r\n                            <input matInput name=\"qty\" [disabled]=\"isDisabled\" ngControl=\"qty\" [(ngModel)]=\"trade.quantity\" required>\r\n                        </mat-form-field>\r\n                    </div>\r\n                    <div>\r\n                            <mat-form-field floatLabel=\"always\">\r\n                                    <mat-label><b>Location</b></mat-label>\r\n                                    <mat-select ngControl=\"location\" [disabled]=\"isDisabled\" [(ngModel)]=\"trade.location\" required name=\"location\">\r\n                                        <mat-option *ngFor=\"let location of locations\" [value]=\"location.code\">{{location.name}}</mat-option>\r\n                                    </mat-select>\r\n                                </mat-form-field>\r\n                    </div>\r\n                    <div [style.display]=\"showButtons()\">\r\n                        <button mat-raised-button color=\"accent\" text-transform=\"uppercase\" (click)=\"changeMode('DETAIL')\" type=\"button\"> Cancel</button>\r\n                        <button mat-raised-button color=\"primary\" text-transform=\"uppercase\" type=\"submit\"> Save</button>\r\n                    </div>\r\n                </form>\r\n            </div>\r\n        \r\n    </mat-card>"
 
 /***/ }),
 
@@ -619,8 +655,8 @@ module.exports = "<mat-card class=\"main-container mat-elevation-z8\">\r\n      
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_models_trade__ = __webpack_require__("../../../../../src/shared/models/trade.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_services_trade_service_trade_service__ = __webpack_require__("../../../../../src/shared/services/trade-service/trade-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -637,9 +673,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var TradeDetailsComponent = (function () {
-    function TradeDetailsComponent(_refService, _route, _tradeService, _datePipe) {
+    function TradeDetailsComponent(refData, _route, _tradeService, _datePipe) {
         var _this = this;
-        this._refService = _refService;
+        this.refData = refData;
         this._route = _route;
         this._tradeService = _tradeService;
         this._datePipe = _datePipe;
@@ -653,16 +689,9 @@ var TradeDetailsComponent = (function () {
         });
     }
     TradeDetailsComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._refService.getAllCommodities().subscribe(function (data) {
-            _this.commodities.push.apply(_this.commodities, data);
-        });
-        this._refService.getAllCounterParties().subscribe(function (data) {
-            _this.counterparties.push.apply(_this.counterparties, data);
-        });
-        this._refService.getAllLocations().subscribe(function (data) {
-            _this.locations.push.apply(_this.locations, data);
-        });
+        this.locations.push.apply(this.locations, this.refData.getLocations());
+        this.commodities.push.apply(this.commodities, this.refData.getCommodities());
+        this.counterparties.push.apply(this.counterparties, this.refData.getCounterparties());
     };
     TradeDetailsComponent.prototype.getDetails = function (id) {
         var _this = this;
@@ -689,19 +718,21 @@ var TradeDetailsComponent = (function () {
     TradeDetailsComponent.prototype.updateTrade = function () {
         this.trade.tradeDate = this._datePipe.transform(this.tradeDate, 'dd-MM-yyyy');
         console.log(" NEw Trade = " + JSON.stringify(this.trade));
-        // this._tradeService.
+        this._tradeService.updateTrade(this.trade).subscribe(function (data) {
+            console.log("Trade updated " + data);
+        });
     };
     TradeDetailsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'trade-detail',
             template: __webpack_require__("../../../../../src/components/trade/trade-detail/trade-details.component.html"),
             styles: [__webpack_require__("../../../../../src/components/trade/trade-detail/trade-details.component.css")],
-            providers: [__WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* DatePipe */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__shared_services_ref_data_store__["a" /* ReferenceDataStore */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */],
             __WEBPACK_IMPORTED_MODULE_3__shared_services_trade_service_trade_service__["a" /* TradeService */],
-            __WEBPACK_IMPORTED_MODULE_5__angular_common__["d" /* DatePipe */]])
+            __WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */]])
     ], TradeDetailsComponent);
     return TradeDetailsComponent;
 }());
@@ -900,6 +931,7 @@ module.exports = "<mat-card class=\"main-container mat-elevation-z11\">\r\n\r\n 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_services_trade_service_trade_service__ = __webpack_require__("../../../../../src/shared/services/trade-service/trade-service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -917,9 +949,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var TradeSearchComponent = (function () {
-    function TradeSearchComponent(_refService, _tradeService, _datePipe, _snakBar) {
-        this._refService = _refService;
+    function TradeSearchComponent(refData, _tradeService, _datePipe, _snakBar) {
+        this.refData = refData;
         this._tradeService = _tradeService;
         this._datePipe = _datePipe;
         this._snakBar = _snakBar;
@@ -930,7 +963,6 @@ var TradeSearchComponent = (function () {
         this.onSearch = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["x" /* EventEmitter */]();
     }
     TradeSearchComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.searchForm = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormGroup */]({
             fromDate: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */](new Date()),
             toDate: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */](new Date()),
@@ -938,15 +970,9 @@ var TradeSearchComponent = (function () {
             counterparty: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */](''),
             location: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]('')
         });
-        this._refService.getAllLocations().subscribe(function (data) {
-            _this.locations.push.apply(_this.locations, data);
-        });
-        this._refService.getAllCommodities().subscribe(function (data) {
-            _this.commodities.push.apply(_this.commodities, data);
-        });
-        this._refService.getAllCounterParties().subscribe(function (data) {
-            _this.counterparties.push.apply(_this.counterparties, data);
-        });
+        this.locations.push.apply(this.locations, this.refData.getLocations());
+        this.commodities.push.apply(this.commodities, this.refData.getCommodities());
+        this.counterparties.push.apply(this.counterparties, this.refData.getCounterparties());
         console.log("Search component initialized");
     };
     TradeSearchComponent.prototype.doSearch = function () {
@@ -990,7 +1016,7 @@ var TradeSearchComponent = (function () {
             styles: [__webpack_require__("../../../../../src/components/trade/trade-search/trade-search.component.css")],
             providers: [__WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */], __WEBPACK_IMPORTED_MODULE_3__shared_services_trade_service_trade_service__["a" /* TradeService */], __WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */], __WEBPACK_IMPORTED_MODULE_3__shared_services_trade_service_trade_service__["a" /* TradeService */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__shared_services_ref_data_store__["a" /* ReferenceDataStore */], __WEBPACK_IMPORTED_MODULE_3__shared_services_trade_service_trade_service__["a" /* TradeService */],
             __WEBPACK_IMPORTED_MODULE_4__angular_common__["d" /* DatePipe */], __WEBPACK_IMPORTED_MODULE_5__angular_material__["f" /* MatSnackBar */]])
     ], TradeSearchComponent);
     return TradeSearchComponent;
@@ -1072,19 +1098,17 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__app_app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__trade_search_results_trade_search_results_component__ = __webpack_require__("../../../../../src/components/trade/trade-search-results/trade-search-results.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__trade_search_trade_search_component__ = __webpack_require__("../../../../../src/components/trade/trade-search/trade-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__shared_services_refrerence_service_reference_service_module__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__shared_pipes_PipesModules__ = __webpack_require__("../../../../../src/shared/pipes/PipesModules.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__shared_services_trade_service_trade_service__ = __webpack_require__("../../../../../src/shared/services/trade-service/trade-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__shared_services_notification_notification_service__ = __webpack_require__("../../../../../src/shared/services/notification/notification-service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__trade_notificaition_trade_notification_component__ = __webpack_require__("../../../../../src/components/trade/trade-notificaition/trade-notification.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__shared_pipes_PipesModules__ = __webpack_require__("../../../../../src/shared/pipes/PipesModules.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__shared_services_trade_service_trade_service__ = __webpack_require__("../../../../../src/shared/services/trade-service/trade-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__shared_services_notification_notification_service__ = __webpack_require__("../../../../../src/shared/services/notification/notification-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__trade_notificaition_trade_notification_component__ = __webpack_require__("../../../../../src/components/trade/trade-notificaition/trade-notification.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__shared_services_services_module__ = __webpack_require__("../../../../../src/shared/services/services.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -1119,7 +1143,7 @@ var TradesModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_12__trade_detail_trade_details_component__["a" /* TradeDetailsComponent */],
                 __WEBPACK_IMPORTED_MODULE_16__trade_search_results_trade_search_results_component__["a" /* TradeSearchResultsComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__trade_search_trade_search_component__["a" /* TradeSearchComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__trade_notificaition_trade_notification_component__["a" /* TradeNotificationComponent */]
+                __WEBPACK_IMPORTED_MODULE_21__trade_notificaition_trade_notification_component__["a" /* TradeNotificationComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_14__angular_router__["c" /* RouterModule */].forChild(__WEBPACK_IMPORTED_MODULE_15__app_app_routes__["b" /* TRADE_ROUTES */]),
@@ -1135,12 +1159,11 @@ var TradesModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_10__angular_material_datepicker__["a" /* MatDatepickerModule */], __WEBPACK_IMPORTED_MODULE_11__angular_material_core__["n" /* MatNativeDateModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_material__["e" /* MatSelectModule */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["g" /* MatSnackBarModule */],
                 __WEBPACK_IMPORTED_MODULE_4__angular_material__["j" /* MatToolbarModule */],
-                // MatIconModule, 
-                __WEBPACK_IMPORTED_MODULE_18__shared_services_refrerence_service_reference_service_module__["a" /* ReferenceServiceModule */],
-                __WEBPACK_IMPORTED_MODULE_20__shared_pipes_PipesModules__["a" /* PipesModule */]
+                __WEBPACK_IMPORTED_MODULE_22__shared_services_services_module__["a" /* ServicesModule */],
+                __WEBPACK_IMPORTED_MODULE_18__shared_pipes_PipesModules__["a" /* PipesModule */]
             ],
             exports: [__WEBPACK_IMPORTED_MODULE_13__trade_component__["a" /* TradeComponent */]],
-            providers: [__WEBPACK_IMPORTED_MODULE_19__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["f" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_21__shared_services_trade_service_trade_service__["a" /* TradeService */], __WEBPACK_IMPORTED_MODULE_22__shared_services_notification_notification_service__["a" /* NotificationService */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_4__angular_material__["f" /* MatSnackBar */], __WEBPACK_IMPORTED_MODULE_19__shared_services_trade_service_trade_service__["a" /* TradeService */], __WEBPACK_IMPORTED_MODULE_20__shared_services_notification_notification_service__["a" /* NotificationService */]]
         })
     ], TradesModule);
     return TradesModule;
@@ -1229,7 +1252,7 @@ var Trade = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__location_pipe__ = __webpack_require__("../../../../../src/shared/pipes/location.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__to_date_pipe__ = __webpack_require__("../../../../../src/shared/pipes/to-date.pipe.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__side_pipe__ = __webpack_require__("../../../../../src/shared/pipes/side.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_services_refrerence_service_reference_service_module__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1255,7 +1278,7 @@ var PipesModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_1__commodity_pipe__["a" /* CommodityPipe */], __WEBPACK_IMPORTED_MODULE_2__location_pipe__["a" /* LocationPipe */], __WEBPACK_IMPORTED_MODULE_3__to_date_pipe__["a" /* ToDatePipe */], __WEBPACK_IMPORTED_MODULE_4__side_pipe__["a" /* SidePipe */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_5__shared_services_refrerence_service_reference_service_module__["a" /* ReferenceServiceModule */]
+                __WEBPACK_IMPORTED_MODULE_5__services_ref_data_store__["a" /* ReferenceDataStore */]
             ]
         })
     ], PipesModule);
@@ -1272,7 +1295,7 @@ var PipesModule = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommodityPipe; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1285,14 +1308,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var CommodityPipe = (function () {
-    function CommodityPipe(_refservice) {
+    // private _promise = this._refservice.getAllCommodities().toPromise();
+    function CommodityPipe(refDataStore) {
         var _this = this;
-        this._refservice = _refservice;
+        this.refDataStore = refDataStore;
         this._commodities = new Map();
-        this._promise = this._refservice.getAllCommodities().toPromise();
-        this._promise.then(function (data) {
-            data.forEach(function (c) { return _this._commodities.set(c.code, c.description); });
-        });
+        this.refDataStore.getCommodities()
+            .forEach(function (c) { return _this._commodities.set(c.code, c.description); });
+        // this._promise.then(
+        //     (data: Commodity[])=>{
+        //         data.forEach( (c:Commodity)=> this._commodities.set(c.code, c.description));
+        //     }
+        // );
         // this._refservice.getAllCommodities().subscribe();
     }
     CommodityPipe.prototype.transform = function (value, args) {
@@ -1302,7 +1329,7 @@ var CommodityPipe = (function () {
     };
     CommodityPipe = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Pipe */])({ name: 'commoditypipe' }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_ref_data_store__["a" /* ReferenceDataStore */]])
     ], CommodityPipe);
     return CommodityPipe;
 }());
@@ -1317,7 +1344,7 @@ var CommodityPipe = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocationPipe; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_ref_data_store__ = __webpack_require__("../../../../../src/shared/services/ref-data-store.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1330,13 +1357,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var LocationPipe = (function () {
-    function LocationPipe(_refservice) {
+    function LocationPipe(refDataStore) {
         var _this = this;
-        this._refservice = _refservice;
+        this.refDataStore = refDataStore;
         this._locations = new Map();
-        this._refservice.getAllLocations().subscribe(function (data) {
-            data.forEach(function (c) { return _this._locations.set(c.code, c.name); });
-        });
+        this.refDataStore.getLocations()
+            .forEach(function (c) { return _this._locations.set(c.code, c.name); });
+        // this._refservice.getAllLocations().subscribe((data:Location[])=>{
+        //     data.forEach( (c:Location)=> this._locations.set(c.code, c.name));
+        // });
     }
     LocationPipe.prototype.transform = function (value, args) {
         if (!value)
@@ -1345,7 +1374,7 @@ var LocationPipe = (function () {
     };
     LocationPipe = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Pipe */])({ name: 'locationpipe' }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__shared_services_refrerence_service_reference_service__["a" /* ReferenceService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_ref_data_store__["a" /* ReferenceDataStore */]])
     ], LocationPipe);
     return LocationPipe;
 }());
@@ -1515,40 +1544,67 @@ var NotificationService = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/shared/services/refrerence-service/reference-service.module.ts":
+/***/ "../../../../../src/shared/services/ref-data-store.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReferenceServiceModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReferenceDataStore; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Configuration__ = __webpack_require__("../../../../../src/shared/services/Configuration.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__refrerence_service_reference_service__ = __webpack_require__("../../../../../src/shared/services/refrerence-service/reference-service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_zip__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/zip.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 
 
-var ReferenceServiceModule = (function () {
-    function ReferenceServiceModule() {
+
+var ReferenceDataStore = (function () {
+    function ReferenceDataStore(refService) {
+        this.refService = refService;
+        this.locations = [];
+        this.counterparties = [];
+        this.commodities = [];
+        console.log("Refernce Data Store Constructed.");
     }
-    ReferenceServiceModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
-            /*declarations: [
-              ReferenceService
-            ],*/
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_2__Configuration__["a" /* Configuration */]
-            ]
-        })
-    ], ReferenceServiceModule);
-    return ReferenceServiceModule;
+    ReferenceDataStore.prototype.init = function () {
+        var _this = this;
+        return new Promise(function (resolve) {
+            console.log("Calling services to get Refernce Data");
+            var that = _this;
+            __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */].zip(_this.refService.getAllCommodities(), _this.refService.getAllCounterParties(), _this.refService.getAllLocations())
+                .subscribe(function (a) {
+                console.log(a[0]);
+                console.log(a[1]);
+                console.log(a[2]);
+                that.commodities = a[0];
+                that.counterparties = a[1];
+                that.locations = a[2];
+                resolve(true);
+            });
+        });
+    };
+    ReferenceDataStore.prototype.getCommodities = function () {
+        return this.commodities;
+    };
+    ReferenceDataStore.prototype.getCounterparties = function () {
+        return this.counterparties;
+    };
+    ReferenceDataStore.prototype.getLocations = function () {
+        return this.locations;
+    };
+    ReferenceDataStore = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__refrerence_service_reference_service__["a" /* ReferenceService */]])
+    ], ReferenceDataStore);
+    return ReferenceDataStore;
 }());
 
 
@@ -1580,9 +1636,9 @@ var ReferenceService = (function () {
     function ReferenceService(_httpClient, _config) {
         this._httpClient = _httpClient;
         this._config = _config;
-        this.locationUrl = '/location';
-        this.counterPartyUrl = '/counterparty';
-        this.commodityUrl = '/commodity';
+        this.locationUrl = '/ref/location';
+        this.counterPartyUrl = '/ref/counterparty';
+        this.commodityUrl = '/ref/commodity';
     }
     ReferenceService.prototype.getAllLocations = function () {
         var url = this._config.server + this.locationUrl + "/list";
@@ -1619,6 +1675,47 @@ var CustomInterceptor = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])()
     ], CustomInterceptor);
     return CustomInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/shared/services/services.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServicesModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Configuration__ = __webpack_require__("../../../../../src/shared/services/Configuration.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+// import {ReferenceService} from './reference-service';
+
+var ServicesModule = (function () {
+    function ServicesModule() {
+    }
+    ServicesModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
+            /*declarations: [
+              ReferenceService
+            ],*/
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_2__Configuration__["a" /* Configuration */]
+            ]
+        })
+    ], ServicesModule);
+    return ServicesModule;
 }());
 
 
@@ -1670,7 +1767,7 @@ var TradeService = (function () {
         if (toDate != "" && toDate != null && toDate != undefined) {
             params.set("to", toDate);
         }
-        var httpParams = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]();
+        var httpParams = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpParams */]();
         params.forEach(function (key, val) {
             httpParams = httpParams.append(val, key);
         });
@@ -1678,14 +1775,14 @@ var TradeService = (function () {
     };
     TradeService.prototype.deleteTrade = function (tradeId) {
         var url = this._config.server + this.tradesUrl;
-        var httpParams = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]();
+        var httpParams = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpParams */]();
         httpParams = httpParams.append("id", tradeId);
         console.log("Delete Trade Service " + httpParams);
         return this._httpClient.delete(url, { params: httpParams });
     };
     TradeService.prototype.getTrade = function (tradeId) {
         var url = this._config.server + this.tradesUrl;
-        var httpParams = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpParams */]();
+        var httpParams = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpParams */]();
         httpParams = httpParams.append("id", tradeId);
         return this._httpClient.get(url, { params: httpParams });
     };
@@ -1693,11 +1790,66 @@ var TradeService = (function () {
         var url = this._config.server + this.tradesUrl;
         return this._httpClient.post(url, trade);
     };
+    TradeService.prototype.updateTrade = function (trade) {
+        var url = this._config.server + this.tradesUrl;
+        return this._httpClient.put(url, trade);
+    };
     TradeService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__Configuration__["a" /* Configuration */]])
     ], TradeService);
     return TradeService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/shared/services/user-service/user-service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Configuration__ = __webpack_require__("../../../../../src/shared/services/Configuration.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UserService = (function () {
+    function UserService(http, _config) {
+        this.http = http;
+        this._config = _config;
+        this.userUrl = "/user";
+        this.logoutUrl = "/logout";
+    }
+    UserService.prototype.logout = function () {
+        var url = this._config.server + this.logoutUrl;
+        console.log("logging out " + url);
+        return this.http.post(url, {});
+    };
+    UserService.prototype.getUserName = function () {
+        var url = this._config.server + this.userUrl;
+        console.log("Getting User information");
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
+            'Content-Type': 'text/plain'
+        });
+        return this.http.get(url);
+    };
+    UserService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__Configuration__["a" /* Configuration */]])
+    ], UserService);
+    return UserService;
 }());
 
 

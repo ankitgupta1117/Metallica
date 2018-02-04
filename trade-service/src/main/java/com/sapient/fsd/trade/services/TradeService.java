@@ -4,6 +4,7 @@ import com.sapient.fsd.trade.entities.Trade;
 import com.sapient.fsd.trade.exceptions.TradeException;
 import com.sapient.fsd.trade.models.CreateTradeRequest;
 import com.sapient.fsd.trade.models.TradeVO;
+import com.sapient.fsd.trade.models.UpdateTradeRequest;
 import com.sapient.fsd.trade.repository.SearchTradeDao;
 import com.sapient.fsd.trade.repository.TradeRepository;
 import com.sapient.fsd.trade.utils.DateTimeUtils;
@@ -68,8 +69,20 @@ public class TradeService {
         jmsNotifier.sendTradeDeletionEvent(tradeId);
     }
 
-    public void updateTrade(CreateTradeRequest request){
-
+    @Transactional
+    public void updateTrade(UpdateTradeRequest request){
+        LocalDateTime tradeDate;
+        try{
+            tradeDate = DateTimeUtils.parseDate(request.getTradeDate());
+        }catch (DateTimeParseException e){
+            LOG.error("Unable to parse trade date "+request.getTradeDate());
+            throw new TradeException("Unable to update trade as the trade date passed is invalid. Trade date passed is: "+request.getTradeDate());
+        }
+        Trade trade = new Trade(request.getSide(), request.getCommodity(), request.getCntrParty(),
+                request.getLocation(), tradeDate, request.getPrice(), request.getQuantity(), request.getStatus());
+        trade.setId(request.getId());
+        Trade updatedTrade =tradeRepository.save(trade);
+        jmsNotifier.sendTradeUpdateEvent(updatedTrade.getId());
     }
 
     public TradeVO getTrade(Long tradeId){

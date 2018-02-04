@@ -9,6 +9,7 @@ import { ReferenceService } from '../../../shared/services/refrerence-service/re
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { MatIconRegistry } from '@angular/material';
 import { DatePipe } from '@angular/common';
+import { ReferenceDataStore } from '../../../shared/services/ref-data-store';
 
 @Component({
   selector: 'trade-detail',
@@ -25,7 +26,7 @@ export class TradeDetailsComponent implements OnInit{
   public commodities: Commodity[] = [];
   public tradeDate: Date;
 
-  constructor(private _refService: ReferenceService,
+  constructor(private refData: ReferenceDataStore,
            private _route: ActivatedRoute, 
            private _tradeService: TradeService,
            private _datePipe: DatePipe){
@@ -37,23 +38,9 @@ export class TradeDetailsComponent implements OnInit{
   }
 
   ngOnInit(){
-    this._refService.getAllCommodities().subscribe(
-       (data: Commodity[]) => {
-         this.commodities.push.apply(this.commodities,data);
-       }
-     );
-
-     this._refService.getAllCounterParties().subscribe(
-       (data: CounterParty[]) => {
-         this.counterparties.push.apply(this.counterparties,data);
-       }
-     );
-
-     this._refService.getAllLocations().subscribe(
-       (data: Location[]) => {
-         this.locations.push.apply(this.locations,data);
-       }
-     );
+    this.locations.push.apply(this.locations,this.refData.getLocations());
+      this.commodities.push.apply(this.commodities, this.refData.getCommodities());
+      this.counterparties.push.apply(this.counterparties,this.refData.getCounterparties());
 }
 
   private getDetails(id: string) {
@@ -85,7 +72,9 @@ export class TradeDetailsComponent implements OnInit{
   private updateTrade(){
     this.trade.tradeDate = this._datePipe.transform(this.tradeDate, 'dd-MM-yyyy');
     console.log(" NEw Trade = "+JSON.stringify(this.trade));
-    // this._tradeService.
+    this._tradeService.updateTrade(this.trade).subscribe( data =>{
+      console.log("Trade updated "+ data);
+  });
   }
 
 }
