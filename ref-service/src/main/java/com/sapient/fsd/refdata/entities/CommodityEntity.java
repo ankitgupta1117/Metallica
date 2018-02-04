@@ -25,4 +25,16 @@ public class CommodityEntity {
     public String getDescription() {
         return description;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -5,7 +5,7 @@ import com.sapient.fsd.refdata.entities.CommodityEntity;
 import com.sapient.fsd.refdata.services.CommodityRefService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.repositories.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;

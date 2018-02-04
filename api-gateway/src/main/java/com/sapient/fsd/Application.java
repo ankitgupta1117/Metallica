@@ -51,15 +51,6 @@ public class Application extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-//                .antMatcher("/**")
-//                .authorizeRequests()
-//                .antMatchers("/", "/login**", "/webjars/**"/*, "/logout"*/)
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-////                .and().logout().logoutSuccessUrl("/").permitAll()
-//                .and().csrf().disable();
-//                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
 }
