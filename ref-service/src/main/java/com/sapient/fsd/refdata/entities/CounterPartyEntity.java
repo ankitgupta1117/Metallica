@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
+ * CounterParty entity
  * Created by agu187 on 1/11/2018.
  */
 @Entity

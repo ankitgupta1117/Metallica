@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ *
  * Created by agu187 on 1/13/2018.
  */
 @RestController
@@ -21,11 +22,20 @@ public class CounterPartyController {
     @Autowired
     private CounterPartyService counterPartyService;
 
+    /**
+     * Lists all the counter parties present in repository
+     * @return list of counterparty instances
+     */
     @GetMapping("list")
     public List<CounterPartyEntity> listCounterParties(){
         return counterPartyService.getAllCounterParties();
     }
 
+    /**
+     * Returns the counterparty entity for a specific ID
+     * @param id - counterparty Id
+     * @return - counterparty instance
+     */
     @GetMapping("search")
     public CounterPartyEntity searchById(@Param("id") String id){
         if(StringUtils.isEmpty(id)){

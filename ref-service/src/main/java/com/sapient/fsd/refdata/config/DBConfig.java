@@ -23,6 +23,8 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
+ * Spring Configuration class for Data base configurations.
+ *
  * Created by agu187 on 1/11/2018.
  */
 @Configuration

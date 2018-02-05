@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.math.BigInteger;
 
 /**
+ * Commodity entity
+ *
  * Created by agu187 on 1/11/2018.
  */
 @Entity
