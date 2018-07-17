@@ -27,12 +27,18 @@ public class TradeService {
     private static final Logger LOG = LoggerFactory.getLogger(TradeService.class);
     private static final String STATUS_OPEN = "Open";
 
-    @Autowired
+
     private SearchTradeDao searchTradeDao;
-    @Autowired
     private TradeRepository tradeRepository;
-    @Autowired
     private JmsNotifier jmsNotifier;
+
+    public TradeService(@Autowired SearchTradeDao searchTradeDao,
+                        @Autowired TradeRepository tradeRepository,
+                        @Autowired JmsNotifier jmsNotifier) {
+        this.searchTradeDao = searchTradeDao;
+        this.tradeRepository = tradeRepository;
+        this.jmsNotifier = jmsNotifier;
+    }
 
     public List<TradeVO> search(String side, String commodity, String counterParty, String location, String startDate, String endDate){
         List<Trade> tradeFromDb  =  searchTradeDao.searchTradeFromDb(side, commodity, counterParty, location, startDate, endDate);

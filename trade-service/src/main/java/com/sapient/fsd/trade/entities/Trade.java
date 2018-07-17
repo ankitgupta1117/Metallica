@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Created by agu187 on 1/14/2018.
@@ -130,5 +131,27 @@ public class Trade {
                 ", cntrPartyCd='" + cntrPartyCd + '\'' +
                 ", commodityCd='" + commodityCd + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Trade)) return false;
+        Trade trade = (Trade) o;
+        return Objects.equals(getId(), trade.getId()) &&
+                Objects.equals(getSide(), trade.getSide()) &&
+                Objects.equals(getPrice(), trade.getPrice()) &&
+                Objects.equals(getQuantity(), trade.getQuantity()) &&
+                Objects.equals(getTradeDate(), trade.getTradeDate()) &&
+                Objects.equals(getStatus(), trade.getStatus()) &&
+                Objects.equals(getLocationCd(), trade.getLocationCd()) &&
+                Objects.equals(getCntrPartyCd(), trade.getCntrPartyCd()) &&
+                Objects.equals(getCommodityCd(), trade.getCommodityCd());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getSide(), getPrice(), getQuantity(), getTradeDate(), getStatus(), getLocationCd(), getCntrPartyCd(), getCommodityCd());
     }
 }
