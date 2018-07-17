@@ -1,15 +1,18 @@
 security:
   oauth2:
     client:
-      clientId: 210405846187873
-      clientSecret: 2dcf35af73c1a1f400618fabc1bca82c
-      accessTokenUri: https://graph.facebook.com/oauth/access_token
-      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+      clientId: 482533466701-ajridna7kt644qnc1f5ua3olaa3ecgic.apps.googleusercontent.com
+      clientSecret: 2tIjew1yCo1eOPnGYJFy1Yl5
+      accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
       tokenName: oauth_token
       authenticationScheme: query
       clientAuthenticationScheme: form
+      scope: profile
+      redirect_uri: http://localhost
     resource:
-      userInfoUri: https://graph.facebook.com/me
+      userInfoUri: https://www.googleapis.com/userinfo/v2/me
+#      preferTokenInfo: false
 
 proxy:
     auth:
